@@ -87,6 +87,17 @@ const TableDataInputs = () => {
       ];
       // update the state to the addRow array
       setAddRow(updateRows);
+
+      dispatch(setWorkout(""));
+      dispatch(setYear(""));
+      dispatch(setMonth(""));
+      dispatch(setDay(""));
+      dispatch(setExercise(""));
+      dispatch(setTableData(""));
+      dispatch(setOneWeight(""));
+      dispatch(setOneReps(""));
+      dispatch(setTwoWeight(""));
+      dispatch(setTwoReps(""));
     }
   };
 
@@ -113,6 +124,7 @@ const TableDataInputs = () => {
               onChange={(e) =>
                 dispatch(setWorkout(e.target.outerText), setdropdownInput(true))
               }
+              value={workout}
             />
             {errorMessage === false ? "" : <ErrorMessage />}
           </div>
@@ -139,6 +151,7 @@ const TableDataInputs = () => {
               autoComplete="off"
               // update state of date stored in Redux
               onChange={(e) => dispatch(setMonth(e.target.value))}
+              value={month}
             ></input>
           </div>
           <div className="field">
@@ -150,6 +163,7 @@ const TableDataInputs = () => {
               autoComplete="off"
               // update state of date stored in Redux
               onChange={(e) => dispatch(setDay(e.target.value))}
+              value={day}
             ></input>
           </div>
           <div className="field">
@@ -161,6 +175,7 @@ const TableDataInputs = () => {
               autoComplete="off"
               // update state of date stored in Redux
               onChange={(e) => dispatch(setYear(e.target.value))}
+              value={year}
             ></input>
           </div>
         </div>
