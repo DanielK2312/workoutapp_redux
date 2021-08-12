@@ -2,10 +2,15 @@ import squatMaxReducer from "./squatMaxReducer";
 import benchMaxReducer from "./benchMaxReducer";
 import deadMaxReducer from "./deadMaxReducer";
 import workoutReducer from "./workoutReducer";
-import dateReducer from "./dateReducer";
 import exerciseSelectionReducer from "./exerciseSelectionReducer";
-import volumeReducer from "./volumeReducer";
+import topWeightReducer from "./topWeightReducer";
+import topRepReducer from "./topRepReducer";
+import backoffWeightReducer from "./backoffWeightReducer";
+import backoffRepsReducer from "./backoffReps";
 import setRowReducer from "./setRowReducer";
+import monthReducer from "./monthReducer";
+import dayReducer from "./dayReducer";
+import yearReducer from "./yearReducer";
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
@@ -13,10 +18,15 @@ const allReducers = combineReducers({
   benchMax: benchMaxReducer,
   deadMax: deadMaxReducer,
   chosenWorkout: workoutReducer,
-  date: dateReducer,
   exercise: exerciseSelectionReducer,
-  volume: volumeReducer,
   setRow: setRowReducer,
+  month: monthReducer,
+  day: dayReducer,
+  year: yearReducer,
+  topWeight: topWeightReducer,
+  topReps: topRepReducer,
+  backoffWeight: backoffWeightReducer,
+  backoffReps: backoffRepsReducer,
 });
 
 export default allReducers;

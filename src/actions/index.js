@@ -26,10 +26,24 @@ export const setWorkout = (workoutChose) => {
   };
 };
 
-export const setDate = (dateInput) => {
+export const setMonth = (month) => {
   return {
-    type: "SET_DATE",
-    payload: dateInput,
+    type: "SET_MONTH",
+    payload: month,
+  };
+};
+
+export const setDay = (day) => {
+  return {
+    type: "SET_DAY",
+    payload: day,
+  };
+};
+
+export const setYear = (year) => {
+  return {
+    type: "SET_YEAR",
+    payload: year,
   };
 };
 
@@ -40,10 +54,31 @@ export const setExercise = (exercise) => {
   };
 };
 
-export const setVolume = (volume) => {
+export const setOneWeight = (top) => {
   return {
-    type: "SET_VOLUME",
-    payload: volume,
+    type: "SET_ONEWEIGHT",
+    payload: top,
+  };
+};
+
+export const setOneReps = (rep) => {
+  return {
+    type: "SET_ONEREPS",
+    payload: rep,
+  };
+};
+
+export const setTwoWeight = (backoff) => {
+  return {
+    type: "SET_BACKOFFWEIGHT",
+    payload: backoff,
+  };
+};
+
+export const setTwoReps = (brep) => {
+  return {
+    type: "SET_BACKOFFREPS",
+    payload: brep,
   };
 };
 

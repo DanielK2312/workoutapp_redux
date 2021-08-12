@@ -1,10 +1,10 @@
-const dateReducer = (state = "", action) => {
+const yearReducer = (state = "", action) => {
   switch (action.type) {
-    case "SET_DATE":
+    case "SET_YEAR":
       return action.payload;
     default:
       return state;
   }
 };
 
-export default dateReducer;
+export default yearReducer;
