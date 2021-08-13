@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import ErrorMessage from "./ErrorMessage";
 import { workoutOptions } from "./WorkoutOptions";
+import { months, days, years } from "./DateDropdownOptions";
 import { Dropdown } from "semantic-ui-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -124,7 +125,6 @@ const TableDataInputs = () => {
               onChange={(e) =>
                 dispatch(setWorkout(e.target.outerText), setdropdownInput(true))
               }
-              value={workout}
             />
             {errorMessage === false ? "" : <ErrorMessage />}
           </div>
@@ -144,39 +144,33 @@ const TableDataInputs = () => {
         <div className="three fields">
           <div className="field">
             <label>Month</label>
-            <input
-              type="text"
-              placeholder="Month"
-              required="required"
-              autoComplete="off"
-              // update state of date stored in Redux
-              onChange={(e) => dispatch(setMonth(e.target.value))}
-              value={month}
-            ></input>
+            <Dropdown
+              placeholder="Select Month"
+              fluid
+              selection
+              options={months}
+              onChange={(e) => dispatch(setMonth(e.target.outerText))}
+            />
           </div>
           <div className="field">
             <label>Day</label>
-            <input
-              type="text"
-              placeholder="Day"
-              required="required"
-              autoComplete="off"
-              // update state of date stored in Redux
-              onChange={(e) => dispatch(setDay(e.target.value))}
-              value={day}
-            ></input>
+            <Dropdown
+              placeholder="Select Day"
+              fluid
+              selection
+              options={days}
+              onChange={(e) => dispatch(setDay(e.target.outerText))}
+            />
           </div>
           <div className="field">
             <label>Year</label>
-            <input
-              type="text"
-              placeholder="Year"
-              required="required"
-              autoComplete="off"
-              // update state of date stored in Redux
-              onChange={(e) => dispatch(setYear(e.target.value))}
-              value={year}
-            ></input>
+            <Dropdown
+              placeholder="Select Year"
+              fluid
+              selection
+              options={years}
+              onChange={(e) => dispatch(setYear(e.target.outerText))}
+            />
           </div>
         </div>
 
