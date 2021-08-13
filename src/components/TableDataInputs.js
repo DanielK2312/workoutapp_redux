@@ -1,9 +1,12 @@
 // setting state in Redux for all values to be entered into table
-import React, { useEffect, useState } from "react";
-import ErrorMessage from "./ErrorMessage";
-import { workoutOptions } from "./WorkoutOptions";
-import { months, days, years } from "./DateDropdownOptions";
-import { Dropdown } from "semantic-ui-react";
+import React, { useState } from "react";
+
+// dropdown menu imports
+import MonthDropdown from "../dropdowns/MonthDropdown";
+import DayDropdown from "../dropdowns/DayDropdown";
+import YearDropdown from "../dropdowns/YearDropdown";
+
+// redux functions
 import { useDispatch, useSelector } from "react-redux";
 import {
   setWorkout,
@@ -19,10 +22,6 @@ import {
 } from "../actions";
 
 const TableDataInputs = () => {
-  // check if user selected a dropdown value, error message if not
-  const [dropdownInput, setdropdownInput] = useState(false);
-  // state to choose to display error message
-  const [errorMessage, setErrorMessage] = useState(false);
   // state to store array of objects stored in table
   const [addRow, setAddRow] = useState([
     {
@@ -39,13 +38,6 @@ const TableDataInputs = () => {
     },
   ]);
 
-  // check state of error message on re-render to make error message disappear after 3 seconds
-  useEffect(() => {
-    if (errorMessage === true) {
-      setTimeout(() => setErrorMessage(false), 3000);
-    }
-  }, [errorMessage]);
-
   // Redux stored states, used to set new table rows
   const workout = useSelector((state) => state.chosenWorkout);
   const exercise = useSelector((state) => state.exercise);
@@ -58,48 +50,43 @@ const TableDataInputs = () => {
   const backoffReps = useSelector((state) => state.backoffReps);
 
   const handleAddForm = (e) => {
-    if (dropdownInput === false) {
-      e.preventDefault();
-      setErrorMessage(true);
-    } else {
-      e.preventDefault();
+    e.preventDefault();
 
-      const updateRows = [
-        // copy the current addRow state
-        ...addRow,
-        // now you can add a new object to add to the array
-        {
-          // using the length of the array for a unique id
-          id: addRow.length + 1,
-          // add workout state from redux
-          workout: workout,
-          // add date state from redux
-          month: month,
-          day: day,
-          year: year,
-          // add exercise state from redux
-          exercise: exercise,
-          // add state from redux
-          topWeight,
-          topReps,
-          backoffWeight,
-          backoffReps,
-        },
-      ];
-      // update the state to the addRow array
-      setAddRow(updateRows);
+    const updateRows = [
+      // copy the current addRow state
+      ...addRow,
+      // now you can add a new object to add to the array
+      {
+        // using the length of the array for a unique id
+        id: addRow.length + 1,
+        // add workout state from redux
+        workout: workout,
+        // add date state from redux
+        month: month,
+        day: day,
+        year: year,
+        // add exercise state from redux
+        exercise: exercise,
+        // add state from redux
+        topWeight,
+        topReps,
+        backoffWeight,
+        backoffReps,
+      },
+    ];
+    // update the state to the addRow array
+    setAddRow(updateRows);
 
-      dispatch(setWorkout(""));
-      dispatch(setYear(""));
-      dispatch(setMonth(""));
-      dispatch(setDay(""));
-      dispatch(setExercise(""));
-      dispatch(setTableData(""));
-      dispatch(setOneWeight(""));
-      dispatch(setOneReps(""));
-      dispatch(setTwoWeight(""));
-      dispatch(setTwoReps(""));
-    }
+    dispatch(setWorkout(""));
+    dispatch(setYear(""));
+    dispatch(setMonth(""));
+    dispatch(setDay(""));
+    dispatch(setExercise(""));
+    dispatch(setTableData(""));
+    dispatch(setOneWeight(""));
+    dispatch(setOneReps(""));
+    dispatch(setTwoWeight(""));
+    dispatch(setTwoReps(""));
   };
 
   // stage dispatch to update state value
@@ -115,18 +102,13 @@ const TableDataInputs = () => {
         <div className="two fields">
           <div className="field">
             <label>Workout</label>
-            <Dropdown
-              placeholder="Select Workout"
-              fluid
-              selection
-              options={workoutOptions}
-              name="workout"
-              // update chosenWorkout state saved in Redux
-              onChange={(e) =>
-                dispatch(setWorkout(e.target.outerText), setdropdownInput(true))
-              }
-            />
-            {errorMessage === false ? "" : <ErrorMessage />}
+            <input
+              type="text"
+              required="required"
+              autoComplete="off"
+              onChange={(e) => dispatch(setWorkout(e.target.value))}
+              value={workout}
+            ></input>
           </div>
           <div className="field">
             <label>Exercise</label>
@@ -143,34 +125,13 @@ const TableDataInputs = () => {
 
         <div className="three fields">
           <div className="field">
-            <label>Month</label>
-            <Dropdown
-              placeholder="Select Month"
-              fluid
-              selection
-              options={months}
-              onChange={(e) => dispatch(setMonth(e.target.outerText))}
-            />
+            <MonthDropdown />
           </div>
           <div className="field">
-            <label>Day</label>
-            <Dropdown
-              placeholder="Select Day"
-              fluid
-              selection
-              options={days}
-              onChange={(e) => dispatch(setDay(e.target.outerText))}
-            />
+            <DayDropdown />
           </div>
           <div className="field">
-            <label>Year</label>
-            <Dropdown
-              placeholder="Select Year"
-              fluid
-              selection
-              options={years}
-              onChange={(e) => dispatch(setYear(e.target.outerText))}
-            />
+            <YearDropdown />
           </div>
         </div>
 

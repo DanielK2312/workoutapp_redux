@@ -1,6 +1,7 @@
 import React from "react";
 // import CalculateMax from "./components/CalculateMax";
 import TableDataInputs from "./components/TableDataInputs";
+import Dropdown from "./dropdowns/MonthDropdown";
 
 const App = () => {
   return (
@@ -8,6 +9,7 @@ const App = () => {
       <br></br>
       {/* <CalculateMax /> */}
       <TableDataInputs />
+      {/* <Dropdown /> */}
     </div>
   );
 };
