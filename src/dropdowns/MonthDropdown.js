@@ -26,7 +26,12 @@ const MonthDropdown = () => {
 
   return (
     <div className="ui container">
-      <FormControl fullWidth variant="outlined" className={classes.formControl}>
+      <FormControl
+        fullWidth
+        variant="outlined"
+        required
+        className={classes.formControl}
+      >
         <InputLabel id="demo-simple-select-outlined-label">Month</InputLabel>
         <Select
           value={month}

@@ -9,7 +9,7 @@ const GetDeadMax = () => {
         <input type="text" placeholder="Enter Deadlift Max" />
         <button
           style={{ marginTop: "10px" }}
-          className="fluid primary ui button"
+          className="fluid teal ui button"
           type="submit"
         >
           Calculate Working Weight
