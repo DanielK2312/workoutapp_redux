@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import MonthDropdown from "../dropdowns/MonthDropdown";
 import DayDropdown from "../dropdowns/DayDropdown";
 import YearDropdown from "../dropdowns/YearDropdown";
+import WorkoutDropdown from "../dropdowns/WorkoutDropdown";
+import PullDropdown from "../dropdowns/ExerciseDropdown";
 
 // redux functions
 import { useDispatch, useSelector } from "react-redux";
@@ -101,17 +103,10 @@ const TableDataInputs = () => {
 
         <div className="two fields">
           <div className="field">
-            <label>Workout</label>
-            <input
-              type="text"
-              required="required"
-              autoComplete="off"
-              onChange={(e) => dispatch(setWorkout(e.target.value))}
-              value={workout}
-            ></input>
+            <WorkoutDropdown />
           </div>
           <div className="field">
-            <label>Exercise</label>
+            {/* <label>Exercise</label>
             <input
               type="text"
               name="exercise"
@@ -119,7 +114,8 @@ const TableDataInputs = () => {
               autoComplete="off"
               onChange={(e) => dispatch(setExercise(e.target.value))}
               value={exercise}
-            ></input>
+            ></input> */}
+            <PullDropdown />
           </div>
         </div>
 

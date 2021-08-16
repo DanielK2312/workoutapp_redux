@@ -4,9 +4,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { months } from "../components/DropdownOptions";
+import { workout } from "../components/DropdownOptions";
 import { useSelector, useDispatch } from "react-redux";
-import { setMonth } from "../actions";
+import { setWorkout } from "../actions";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MonthDropdown = () => {
-  const month = useSelector((state) => state.month);
+const WorkoutDropdown = () => {
+  const reduxWorkout = useSelector((state) => state.chosenWorkout);
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -27,16 +27,16 @@ const MonthDropdown = () => {
   return (
     <div className="ui container">
       <FormControl fullWidth variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">Month</InputLabel>
+        <InputLabel id="demo-simple-select-outlined-label">Workout</InputLabel>
         <Select
-          value={month}
-          onChange={(e) => dispatch(setMonth(e.target.value))}
-          label="Month"
+          value={reduxWorkout}
+          onChange={(e) => dispatch(setWorkout(e.target.value))}
+          label="Workout"
         >
-          {months.map((month) => {
+          {workout.map((workout) => {
             return (
-              <MenuItem key={month.id} value={month.value}>
-                {month.value}
+              <MenuItem key={workout.id} value={workout.value}>
+                {workout.value}
               </MenuItem>
             );
           })}
@@ -46,4 +46,4 @@ const MonthDropdown = () => {
   );
 };
 
-export default MonthDropdown;
+export default WorkoutDropdown;
