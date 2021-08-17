@@ -11,13 +11,11 @@ const App = () => {
       <br></br>
       <Router>
         <Navbar />
-        <div className="ui container">
-          <Switch>
-            <Route path="/" exact component={About} />
-            <Route path="/trackWorkout" component={TableDataInputs} />
-            <Route path="/calculateMax" component={CalculateMax} />
-          </Switch>
-        </div>
+        <Switch>
+          <Route path="/" exact component={About} />
+          <Route path="/trackWorkout" component={TableDataInputs} />
+          <Route path="/calculateMax" component={CalculateMax} />
+        </Switch>
       </Router>
     </div>
   );

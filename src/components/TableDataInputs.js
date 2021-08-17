@@ -1,5 +1,5 @@
 // setting state in Redux for all values to be entered into table
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // dropdown menu imports
 import MonthDropdown from "../dropdowns/MonthDropdown";
@@ -24,7 +24,7 @@ import {
 } from "../actions";
 
 const TableDataInputs = () => {
-  // state to store array of objects stored in table
+  // local state to store array of objects stored in table
   const [addRow, setAddRow] = useState([
     {
       id: 1,
@@ -96,120 +96,142 @@ const TableDataInputs = () => {
     dispatch(setTwoReps(""));
   };
 
+  // save state in local storage
+  //////////////////////////////////////////////////////////////////
+  // prevents state from refreshing after a render
+  useEffect(() => {
+    const data = localStorage.getItem("track-workout");
+    if (data) {
+      setAddRow(JSON.parse(data));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("track-workout", JSON.stringify(addRow));
+  });
+
+  /////////////////////////////////////////////////////////////////
+
   // stage dispatch to update state value
   const dispatch = useDispatch();
   // saving the rowData into redux as a state to be used in table row html
   dispatch(setTableData(addRow));
 
   return (
-    <div className="ui container">
-      <form className="ui form" onSubmit={handleAddForm}>
-        <h4 className="ui dividing header">Workout Information</h4>
+    <div>
+      <div className="ui container">
+        <form className="ui form" onSubmit={handleAddForm}>
+          <h4 className="ui dividing header">Workout Information</h4>
 
-        <div className="two fields">
-          <div className="field">
-            <WorkoutDropdown />
+          <div className="two fields">
+            <div className="field">
+              <WorkoutDropdown />
+            </div>
+            <div className="field">
+              <ExerciseDropdown />
+            </div>
           </div>
-          <div className="field">
-            <ExerciseDropdown />
-          </div>
-        </div>
 
-        <div className="three fields">
-          <div className="field">
-            <MonthDropdown />
+          <div className="three fields">
+            <div className="field">
+              <MonthDropdown />
+            </div>
+            <div className="field">
+              <DayDropdown />
+            </div>
+            <div className="field">
+              <YearDropdown />
+            </div>
           </div>
-          <div className="field">
-            <DayDropdown />
-          </div>
-          <div className="field">
-            <YearDropdown />
-          </div>
-        </div>
 
-        <div className="four fields">
-          <div className="field">
-            <label>Set 1 (Top Set) Weight</label>
-            <input
-              type="number"
-              placeholder="Weight in Pounds"
-              required="required"
-              autoComplete="off"
-              onChange={(e) => dispatch(setOneWeight(e.target.value))}
-              value={topWeight}
-            ></input>
+          <div className="four fields">
+            <div className="required field">
+              <label>Set 1 (Top Set) Weight</label>
+              <input
+                type="number"
+                placeholder="Weight in Pounds"
+                required="required"
+                autoComplete="off"
+                onChange={(e) => dispatch(setOneWeight(e.target.value))}
+                value={topWeight}
+              ></input>
+            </div>
+            <div className="required field">
+              <label>Set 1 Reps</label>
+              <input
+                type="number"
+                placeholder="Number of Reps"
+                required="required"
+                autoComplete="off"
+                onChange={(e) => dispatch(setOneReps(e.target.value))}
+                value={topReps}
+              ></input>
+            </div>
+            <div className="required field">
+              <label>Set 2 (Backoff Set) Weight</label>
+              <input
+                type="number"
+                placeholder="Weight in Pounds"
+                required="required"
+                autoComplete="off"
+                onChange={(e) => dispatch(setTwoWeight(e.target.value))}
+                value={backoffWeight}
+              ></input>
+            </div>
+            <div className="required field">
+              <label>Set 2 Reps</label>
+              <input
+                type="number"
+                placeholder="Number of Reps"
+                required="required"
+                autoComplete="off"
+                onChange={(e) => dispatch(setTwoReps(e.target.value))}
+                value={backoffReps}
+              ></input>
+            </div>
           </div>
-          <div className="field">
-            <label>Set 1 Reps</label>
-            <input
-              type="number"
-              placeholder="Number of Reps"
-              required="required"
-              autoComplete="off"
-              onChange={(e) => dispatch(setOneReps(e.target.value))}
-              value={topReps}
-            ></input>
-          </div>
-          <div className="field">
-            <label>Set 2 (Backoff Set) Weight</label>
-            <input
-              type="number"
-              placeholder="Weight in Pounds"
-              required="required"
-              autoComplete="off"
-              onChange={(e) => dispatch(setTwoWeight(e.target.value))}
-              value={backoffWeight}
-            ></input>
-          </div>
-          <div className="field">
-            <label>Set 2 Reps</label>
-            <input
-              type="number"
-              placeholder="Number of Reps"
-              required="required"
-              autoComplete="off"
-              onChange={(e) => dispatch(setTwoReps(e.target.value))}
-              value={backoffReps}
-            ></input>
-          </div>
-        </div>
 
-        <button className="fluid ui button" type="submit">
-          Add Workout
-        </button>
-      </form>
+          <button className="fluid teal ui button" type="submit">
+            Add Workout
+          </button>
+        </form>
+      </div>
 
-      {/* table implementation */}
-      <table className="ui celled table">
-        <thead>
-          <tr>
-            <th>Workout</th>
-            <th>Exercise</th>
-            <th>Month</th>
-            <th>Day</th>
-            <th>Year</th>
-            <th>Set 1 Weight</th>
-            <th>Set 1 Reps</th>
-            <th>Set 2 Weight</th>
-            <th>Set 2 Reps</th>
-          </tr>
-        </thead>
-        <tbody>
-          {addRow.slice(1).map((row) => (
-            <tr key={row.id}>
-              <td>{row.workout}</td>
-              <td>{row.exercise}</td>
-              <td>{row.month}</td>
-              <td>{row.day}</td>
-              <td>{row.year}</td>
-              <td>{row.topWeight}</td>
-              <td>{row.topReps}</td>
-              <td>{row.backoffWeight}</td>
-              <td>{row.backoffReps}</td>
+      <br />
+
+      <div className="ui container">
+        {/* table implementation */}
+        <table className="ui small compact table">
+          <thead>
+            <tr>
+              <th>Workout</th>
+              <th>Exercise</th>
+              <th>Month</th>
+              <th>Day</th>
+              <th>Year</th>
+              <th>Set 1 Weight</th>
+              <th>Set 1 Reps</th>
+              <th>Set 2 Weight</th>
+              <th>Set 2 Reps</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {addRow.slice(1).map((row) => (
+              <tr key={row.id}>
+                <td>{row.workout}</td>
+                <td>{row.exercise}</td>
+                <td>{row.month}</td>
+                <td>{row.day}</td>
+                <td>{row.year}</td>
+                <td>{row.topWeight}</td>
+                <td>{row.topReps}</td>
+                <td>{row.backoffWeight}</td>
+                <td>{row.backoffReps}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
