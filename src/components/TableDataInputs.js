@@ -6,7 +6,7 @@ import MonthDropdown from "../dropdowns/MonthDropdown";
 import DayDropdown from "../dropdowns/DayDropdown";
 import YearDropdown from "../dropdowns/YearDropdown";
 import WorkoutDropdown from "../dropdowns/WorkoutDropdown";
-import PullDropdown from "../dropdowns/ExerciseDropdown";
+import ExerciseDropdown from "../dropdowns/ExerciseDropdown";
 
 // redux functions
 import { useDispatch, useSelector } from "react-redux";
@@ -51,9 +51,14 @@ const TableDataInputs = () => {
   const backoffWeight = useSelector((state) => state.backoffWeight);
   const backoffReps = useSelector((state) => state.backoffReps);
 
+  /**
+   * Handles form submission
+   * @param {event} e
+   */
   const handleAddForm = (e) => {
     e.preventDefault();
 
+    // if all inputs are valid, add to table
     const updateRows = [
       // copy the current addRow state
       ...addRow,
@@ -106,16 +111,7 @@ const TableDataInputs = () => {
             <WorkoutDropdown />
           </div>
           <div className="field">
-            {/* <label>Exercise</label>
-            <input
-              type="text"
-              name="exercise"
-              required="required"
-              autoComplete="off"
-              onChange={(e) => dispatch(setExercise(e.target.value))}
-              value={exercise}
-            ></input> */}
-            <PullDropdown />
+            <ExerciseDropdown />
           </div>
         </div>
 
@@ -135,7 +131,8 @@ const TableDataInputs = () => {
           <div className="field">
             <label>Set 1 (Top Set) Weight</label>
             <input
-              type="text"
+              type="number"
+              placeholder="Weight in Pounds"
               required="required"
               autoComplete="off"
               onChange={(e) => dispatch(setOneWeight(e.target.value))}
@@ -145,7 +142,8 @@ const TableDataInputs = () => {
           <div className="field">
             <label>Set 1 Reps</label>
             <input
-              type="text"
+              type="number"
+              placeholder="Number of Reps"
               required="required"
               autoComplete="off"
               onChange={(e) => dispatch(setOneReps(e.target.value))}
@@ -155,7 +153,8 @@ const TableDataInputs = () => {
           <div className="field">
             <label>Set 2 (Backoff Set) Weight</label>
             <input
-              type="text"
+              type="number"
+              placeholder="Weight in Pounds"
               required="required"
               autoComplete="off"
               onChange={(e) => dispatch(setTwoWeight(e.target.value))}
@@ -165,7 +164,8 @@ const TableDataInputs = () => {
           <div className="field">
             <label>Set 2 Reps</label>
             <input
-              type="text"
+              type="number"
+              placeholder="Number of Reps"
               required="required"
               autoComplete="off"
               onChange={(e) => dispatch(setTwoReps(e.target.value))}
