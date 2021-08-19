@@ -99,16 +99,16 @@ const TableDataInputs = () => {
   // save state in local storage
   //////////////////////////////////////////////////////////////////
   // prevents state from refreshing after a render
-  useEffect(() => {
-    const data = localStorage.getItem("track-workout");
-    if (data) {
-      setAddRow(JSON.parse(data));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const data = localStorage.getItem("track-workout");
+  //   if (data) {
+  //     setAddRow(JSON.parse(data));
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    localStorage.setItem("track-workout", JSON.stringify(addRow));
-  });
+  // useEffect(() => {
+  //   localStorage.setItem("track-workout", JSON.stringify(addRow));
+  // });
 
   /////////////////////////////////////////////////////////////////
 
