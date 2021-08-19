@@ -1,5 +1,5 @@
 // setting state in Redux for all values to be entered into table
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // dropdown menu imports
 import MonthDropdown from "../dropdowns/MonthDropdown";
